@@ -6,6 +6,8 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
+        <module>sakathoota-do</module>
+        <module>sakathoota-da</module>
         <module>sakathoota-ws</module>
     </modules>
 
