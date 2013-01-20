@@ -1,5 +1,8 @@
 package com.whiteSpace.domain.common.types;
 
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlType;
+
 /**
  * Created with IntelliJ IDEA.
  * User: sn1
@@ -7,6 +10,8 @@ package com.whiteSpace.domain.common.types;
  * Time: 8:59 PM
  * To change this template use File | Settings | File Templates.
  */
+@XmlType(name="FoodPreference")
+@XmlEnum
 public enum FoodPreference {
     NOT_SPECIFIED(0),
     VEG(1),
