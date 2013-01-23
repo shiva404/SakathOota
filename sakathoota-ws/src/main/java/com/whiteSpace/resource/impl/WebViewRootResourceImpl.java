@@ -10,9 +10,13 @@ import java.util.Map;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.sun.jersey.api.view.Viewable;
+import com.whiteSpace.da.iface.UserDataDAO;
 import com.whiteSpace.resource.iface.WebViewRootResource;
 
 /**
@@ -22,17 +26,28 @@ import com.whiteSpace.resource.iface.WebViewRootResource;
  */
 public class WebViewRootResourceImpl implements WebViewRootResource{
 		
+	@Autowired
+	UserDataDAO userDataDAO;
+	
+	private FBDataAccess dataAccess;
+	
+	public void setDataAccess(FBDataAccess dataAccess) {
+		this.dataAccess = dataAccess;
+	}
+
 	@Override
 	 	@GET
 	    @Produces("text/html")
 	    public Response index() {
-	        Map<String, Object> map = new HashMap<String, Object>();
-	        map.put("user", "usul");
-	        List<String> l = new ArrayList<String>();
-	        l.add("light saber");
-	        l.add("fremen clothes");
-	        map.put("items", l);
-	        return Response.ok(new Viewable("/index.jsp", map)).build();
+	        
+	        return Response.ok(new Viewable("/index.jsp")).build();
 	    }
+	
+	@Override
+	public Response showUser(String id, String idType, Request request) {
+		
+		dataAccess.getUserLatestCheckin("AAAGNxAItAjIBALzZBT9bIFJIaJLP0sy7ZCDCzIbHHyNiK5ESx4ThZCbepTko85KyAss9xuLulfxszIYZCmTjJyAHLTk2sPV2Yu0hVCnp7gZDZD");
+		return null;
+	}
 
 }
