@@ -13,15 +13,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionData;
 import org.springframework.social.connect.ConnectionFactory;
+import org.springframework.social.connect.UserProfile;
 import org.springframework.social.facebook.api.Facebook;
+import org.springframework.social.facebook.api.FacebookProfile;
 import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.GrantType;
 import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.oauth2.OAuth2Parameters;
 
 import com.whiteSpace.da.iface.UserDataDAO;
+import com.whiteSpace.domain.common.types.User;
 import com.whiteSpace.domain.common.types.UserIdType;
 import com.whiteSpace.resource.iface.FBCredentialsController;
+import com.whiteSpace.ws.commons.FB2NativeMapper;
 
 /**
  * @author Shivakumar N
@@ -71,12 +75,14 @@ public class FBCredentailsControllerImpl implements FBCredentialsController{
 			//Check whether user exists or not?
 			Connection<Facebook> connection = fbDataAccess.getConnectionFactory().createConnection(accessGrant);
 			Facebook facebook = connection.getApi();
-			Long fbId = Long.parseLong(facebook.userOperations().getUserProfile().getId());
+			FacebookProfile userProfile = facebook.userOperations().getUserProfile();
+			Long fbId = Long.parseLong(userProfile.getId());
 			if(userDataDAO.getUserByFBId(fbId) != null){
 				userDataDAO.updateAccessTokenByFBId(fbId, accessGrant.getAccessToken(), accessGrant.getExpireTime());
 			}
 			else {
-				//FIXME: add logic to save the user 
+				User newUser = FB2NativeMapper.mapUser(userProfile, accessGrant.getAccessToken(), accessGrant.getExpireTime());
+				userDataDAO.createUser(newUser);
 			}
 			URI url = URI.create(uriInfo.getBaseUri().toURL().toString() + "web/user/" + fbId +"?idType="+UserIdType.FACEBOOK_ID);
 			return Response.seeOther(url).build();

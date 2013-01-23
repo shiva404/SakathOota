@@ -2,6 +2,7 @@ package com.whiteSpace.da.impl;
 
 import com.whiteSpace.da.iface.UserDataDAO;
 import com.whiteSpace.da.rowMapper.UserRowMapper;
+import com.whiteSpace.domain.common.types.FoodPreference;
 import com.whiteSpace.domain.common.types.User;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -38,7 +39,10 @@ public class UserDataDAOImpl extends BaseDAOImpl implements UserDataDAO {
 				preparedStatement.setDate(i++, new Date(user.getDateOfBirth()
 						.getTime()));
 				preparedStatement.setInt(i++, user.getGender().getValue());
-				preparedStatement.setInt(i++, user.getFoodPref().getValue());
+				if(user.getFoodPref() == null){
+					user.setFoodPref(FoodPreference.NOT_SPECIFIED);
+				}
+				preparedStatement.setInt(i++, user.getFoodPref().getValue()) ;
 				preparedStatement.setString(i++, user.getFbAccessToken());
 				preparedStatement.setLong(i++, user.getFbAccessTokenExpires_On());
 				return preparedStatement; // To change body of implemented

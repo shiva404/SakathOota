@@ -17,37 +17,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.sun.jersey.api.view.Viewable;
 import com.whiteSpace.da.iface.UserDataDAO;
+import com.whiteSpace.domain.common.types.User;
 import com.whiteSpace.resource.iface.WebViewRootResource;
 
 /**
  * @author Shivakumar N
- *
+ * 
  * @since Jan 21, 2013 11:24:10 PM
  */
-public class WebViewRootResourceImpl implements WebViewRootResource{
-		
+public class WebViewRootResourceImpl implements WebViewRootResource {
+
 	@Autowired
 	UserDataDAO userDataDAO;
-	
+
 	private FBDataAccess dataAccess;
-	
+
 	public void setDataAccess(FBDataAccess dataAccess) {
 		this.dataAccess = dataAccess;
 	}
 
 	@Override
-	 	@GET
-	    @Produces("text/html")
-	    public Response index() {
-	        
-	        return Response.ok(new Viewable("/index.jsp")).build();
-	    }
-	
+	public Response index() {
+		return Response.ok(new Viewable("/index.jsp")).build();
+	}
+
 	@Override
 	public Response showUser(String id, String idType, Request request) {
+		// AAAGNxAItAjIBALzZBT9bIFJIaJLP0sy7ZCDCzIbHHyNiK5ESx4ThZCbepTko85KyAss9xuLulfxszIYZCmTjJyAHLTk2sPV2Yu0hVCnp7gZDZD
+		User user = userDataDAO.getUserByFBId(Long.parseLong(id));
+		if(user != null){
+			dataAccess.getUserLatestCheckin(userDataDAO.getUserByFBId(Long.parseLong(id)).getFbAccessToken());
+		}
 		
-		dataAccess.getUserLatestCheckin("AAAGNxAItAjIBALzZBT9bIFJIaJLP0sy7ZCDCzIbHHyNiK5ESx4ThZCbepTko85KyAss9xuLulfxszIYZCmTjJyAHLTk2sPV2Yu0hVCnp7gZDZD");
-		return null;
+		return Response.ok(new Viewable("/user.jsp")).build();
 	}
 
 }
