@@ -30,4 +30,7 @@
 
     <bean id="userDAO"  class="com.whiteSpace.da.impl.UserDataDAOImpl" parent="baseDAO" />
     <bean id="txtDao" class="com.whiteSpace.da.impl.TxtWebDAOImpl" />
+    
+    <bean id="locationDao" class="com.whiteSpace.da.impl.LocationDAOImpl" parent="baseDAO" />
+    
 </beans>

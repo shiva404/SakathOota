@@ -31,12 +31,14 @@ DROP TABLE IF EXISTS `locations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `locations` (
-  `location_id` int(11) NOT NULL,
+  `location_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   `longitude` varchar(45) DEFAULT NULL,
   `latitude` varchar(45) DEFAULT NULL,
+  `landmark` varchar(45) DEFAULT NULL,
+  `phone` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`location_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,6 +47,7 @@ CREATE TABLE `locations` (
 
 LOCK TABLES `locations` WRITE;
 /*!40000 ALTER TABLE `locations` DISABLE KEYS */;
+INSERT INTO `locations` VALUES (3,'Junlkizz','234.5','123.45','PESIT','9535890448');
 /*!40000 ALTER TABLE `locations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -151,4 +154,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-01-24 13:37:48
+-- Dump completed on 2013-01-28 19:10:41

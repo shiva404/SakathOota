@@ -36,5 +36,6 @@
 	<bean id="fbDataAccess" class="com.whiteSpace.resource.impl.FBDataAccess">
 		<property name="connectionFactory" ref="fbConnectionFactory" />
 	</bean>
+	
 
 </beans>
