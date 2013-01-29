@@ -22,8 +22,8 @@ public interface UserResource {
     @POST
     public Response createUser(User user);
     
+    //FIXME: Not following REST spec
     @GET
     @Path("/{id}/fb/checkins/latest")
-    public Response getLatestCheckin(@PathParam("id") String id, @QueryParam("idType") String idType);
-    
+    public Response getLatestCheckin(@PathParam("id") String id, @QueryParam("idType") String idType);   
 }

@@ -3,9 +3,12 @@
  */
 package com.whiteSpace.resource.delegators;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.facebook.api.Checkin;
 
+import com.whiteSpace.da.iface.LocationDAO;
 import com.whiteSpace.da.iface.UserDataDAO;
 import com.whiteSpace.domain.common.types.Location;
 import com.whiteSpace.domain.common.types.User;
@@ -22,6 +25,9 @@ public class UserFacebookOperations {
 	 @Autowired
 	 private UserDataDAO userDataDAO;
 	 
+	 @Autowired
+	 private LocationDAO locationDAO;
+	 
 	 private FBDataAccess fbDataAccess;
 	
 	public FBDataAccess getFbDataAccess() {
@@ -32,14 +38,30 @@ public class UserFacebookOperations {
 		this.fbDataAccess = fbDataAccess;
 	}
 
-	public Location getLatestCheckin(String fbId){
-		User user = userDataDAO.getUserByFBId(Long.parseLong(fbId));
-		Checkin checkin = fbDataAccess.getUserLatestCheckin(user.getFbAccessToken());
-		if(checkin != null){
-			Location location = FB2NativeMapper.mapLocation(checkin);
+	public Location getLatestCheckin(String fbUserId){
+		User user = userDataDAO.getUserByFBId(Long.parseLong(fbUserId));
+		List<Checkin> checkins = fbDataAccess.getUserCheckins(user.getFbAccessToken());
+		checkAndSaveToLocal(checkins);
+		if (checkins.size() > 0) {
+			Checkin latestCheckin = checkins.get(0);
+			for (Checkin checkin : checkins) {
+				if(latestCheckin.getCreatedTime().compareTo(checkin.getCreatedTime()) < 0){
+					latestCheckin = checkin;
+				}
+			}
+			Location location = FB2NativeMapper.mapLocation(latestCheckin);
 			location.setUser(user);
 			return location;
 		}
 		return null;
+	}
+	
+	private void checkAndSaveToLocal(List<Checkin> checkins){
+		//FIXME: Implement in efficient way(Add bulk API)
+		for (Checkin checkin : checkins) {
+			if(locationDAO.getLocationByFBLocationId(Long.parseLong(checkin.getPlace().getId())) == null){
+				locationDAO.createLocation(FB2NativeMapper.mapLocation(checkin));
+			}
+		}
 	}
 }

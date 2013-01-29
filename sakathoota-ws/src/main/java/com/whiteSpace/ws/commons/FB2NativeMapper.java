@@ -48,6 +48,7 @@ public class FB2NativeMapper {
 	
 	public static Location mapLocation(Checkin checkin) {
 		Location location = new Location();
+		location.setFbLocationId(Long.parseLong(checkin.getPlace().getId()));
 		location.setName(checkin.getPlace().getName());
 		location.setLongitude(checkin.getPlace().getLocation().getLongitude());
 		location.setLatitude(checkin.getPlace().getLocation().getLatitude());

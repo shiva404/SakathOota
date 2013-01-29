@@ -26,7 +26,7 @@ public class LocationDAOImpl extends BaseDAOImpl implements LocationDAO{
 
 	@Override
 	public Location createLocation(final Location location) {
-		final String query = "insert into locations (name, longitude, latitude, landmark, phone, street, city) values (?, ?, ?, ?, ?, ?, ?)";
+		final String query = "insert into locations (name, longitude, latitude, landmark, phone, street, city, fb_loc_id) values (?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		PreparedStatementCreator preparedStatementCreator = new PreparedStatementCreator() {
 			
@@ -42,6 +42,7 @@ public class LocationDAOImpl extends BaseDAOImpl implements LocationDAO{
 				preparedStatement.setString(i++, location.getPhone());
 				preparedStatement.setString(i++, location.getStreet());
 				preparedStatement.setString(i++, location.getCity());
+				preparedStatement.setLong(i++, location.getFbLocationId());
 				return preparedStatement;
 			}
 		};
@@ -59,5 +60,15 @@ public class LocationDAOImpl extends BaseDAOImpl implements LocationDAO{
 		Locations locations = new Locations();
 		locations.getLocations().addAll(locationList);
 		return locations;
+	}
+
+	@Override
+	public Location getLocationByFBLocationId(Long fbLocationId) {
+		final String query = "select * from locations where fb_loc_id = ?";
+		List<Location> locationList = jdbcTemplate.query(query, new Object[]{fbLocationId}, new BeanPropertyRowMapper(Location.class));
+		if(locationList.size() > 0){
+			return locationList.get(0);
+		}
+		return null;
 	}
 }

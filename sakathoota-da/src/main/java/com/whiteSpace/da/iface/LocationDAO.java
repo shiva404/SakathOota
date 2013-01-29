@@ -14,4 +14,5 @@ import com.whiteSpace.domain.common.types.Locations;
 public interface LocationDAO {
 	public Location createLocation(Location location);
 	public Locations getLocationsByPartialName(String partialName);
+	public Location getLocationByFBLocationId(Long fbLocationId);
 }

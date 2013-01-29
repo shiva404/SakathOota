@@ -44,6 +44,7 @@ public class FBRealTimeNotificationResourceImpl implements FBRealTimeNotificatio
 		TxtWebPush txtWebPush = new TxtWebPush();
 		List<TxtWebPhone> phones = txtWebDAO.getActivePhones();
 		for (TxtWebPhone txtWebPhone : phones) {
+			
 			txtWebPush.processRequest(notification, txtWebPhone.getEncodedNumber());
 		}
 		return null;
@@ -65,7 +66,7 @@ public class FBRealTimeNotificationResourceImpl implements FBRealTimeNotificatio
 		}
 		if(changedFiled.equals("checkins")){
 			Location location = userFacebookOperations.getLatestCheckin(fbNotification.getEntry().get(0).getUid().toString());
-			notification.setData(location.getUser().getName() + "cheked in to " + location.getName() +"," + location.getStreet() + "," + location.getCity());
+			notification.setData(location.getUser().getName() + " cheked in to " + location.getName() +"," + location.getStreet() + "," + location.getCity());
 			logger.info("Sending data*******" + notification.getData());
 		}
 		return notification;

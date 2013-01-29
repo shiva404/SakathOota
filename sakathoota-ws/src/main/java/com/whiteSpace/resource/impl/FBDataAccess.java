@@ -26,19 +26,11 @@ public class FBDataAccess {
 		this.connectionFactory = connectionFactory;
 	}
 
-	public Checkin getUserLatestCheckin(String accessToken) {
+	public List<Checkin> getUserCheckins(String accessToken) {
 		Facebook facebook = connectionFactory.createConnection(new AccessGrant(accessToken)).getApi();
 		List<Checkin> checkins = facebook.placesOperations().getCheckins();
-		if (checkins.size() > 0) {
-			Checkin latestCheckin = checkins.get(0);
-			for (Checkin checkin : checkins) {
-				if(latestCheckin.getCreatedTime().compareTo(checkin.getCreatedTime()) < 0){
-					latestCheckin = checkin;
-				}
-			}
-			return latestCheckin;
-		}
-		return null;
-
+		return checkins;
 	}
+	
+	
 }
