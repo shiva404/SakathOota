@@ -12,7 +12,7 @@ import javax.ws.rs.core.Response;
  * Time: 9:01 AM
  * To change this template use File | Settings | File Templates.
  */
-@Path("users")
+@Path("/users")
 public interface UserResource {
 
     @GET
@@ -21,5 +21,9 @@ public interface UserResource {
 
     @POST
     public Response createUser(User user);
+    
+    @GET
+    @Path("/{id}/fb/checkins/latest")
+    public Response getLatestCheckin(@PathParam("id") String id, @QueryParam("idType") String idType);
     
 }

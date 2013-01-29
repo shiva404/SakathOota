@@ -6,13 +6,16 @@ package com.whiteSpace.da.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
 import com.whiteSpace.da.iface.LocationDAO;
 import com.whiteSpace.domain.common.types.Location;
+import com.whiteSpace.domain.common.types.Locations;
 
 /**
  * @author Shivakumar N
@@ -45,5 +48,14 @@ public class LocationDAOImpl extends BaseDAOImpl implements LocationDAO{
 		location.setId(keyHolder.getKey().intValue());
 		return location;
 	}
-	
+
+	@Override
+	public Locations getLocationsByPartialName(String partialName) {
+		final String query = "select * from locations where name like '%?%'";
+		List<Location> locationList = jdbcTemplate.query(query, new Object[]{partialName}, new BeanPropertyRowMapper(Location.class));
+		
+		Locations locations = new Locations();
+		locations.getLocations().addAll(locationList);
+		return locations;
+	}
 }
