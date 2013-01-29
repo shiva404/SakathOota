@@ -27,7 +27,7 @@ public class UserTest extends TestBase {
     
     @Test
     public void getLatestCheckin(){
-    	resource.path("users/100001609165007/fb/checkins/latest").queryParam("idType", "FACEBOOK_ID").get(ClientResponse.class);
+    	resource.path("users/100005009113735/fb/checkins/latest").queryParam("idType", "FACEBOOK_ID").get(ClientResponse.class);
     }
     
 }

@@ -19,7 +19,7 @@
 
 	<!-- Resources -->
 	<bean class="com.whiteSpace.resource.impl.FBRealTimeNotificationResourceImpl">
-		<property name="fbDataAccess" ref="fbDataAccess" />
+		<property name="userFacebookOperations" ref="userFacebookOperations" />
 	</bean>
 
 	<bean class="com.whiteSpace.resource.impl.UserResourceImpl" >

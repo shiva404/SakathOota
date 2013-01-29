@@ -4,6 +4,7 @@ import com.whiteSpace.resource.delegators.UserFacebookOperations;
 import com.whiteSpace.resource.iface.UserResource;
 import com.whiteSpace.ws.commons.ResponseHandler;
 import com.whiteSpace.da.iface.UserDataDAO;
+import com.whiteSpace.domain.common.types.Location;
 import com.whiteSpace.domain.common.types.User;
 import com.whiteSpace.domain.common.types.UserIdType;
 
@@ -68,7 +69,7 @@ public class UserResourceImpl implements UserResource {
 	@Override
 	public Response getLatestCheckin(String id, String idType) {
 		//FIXME: write validation code
-		Checkin checkin = null;
+		Location checkin = null;
     	switch (UserIdType.fromValue(idType.toUpperCase())) {
 			case FACEBOOK_ID :
 				checkin = userFacebookOperations.getLatestCheckin(id);

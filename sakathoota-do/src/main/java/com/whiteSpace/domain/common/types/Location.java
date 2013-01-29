@@ -20,22 +20,45 @@ public class Location implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private String longitude;
-    private String latitude;
+	private Double longitude;
+    private Double latitude;
     private Integer id;
-	
+    private String name;
+    private String category;
+    //Address
+    private String phone;
+    private String landMark;
+	private String street;
+    private String city;
+    
+    private User user;
+    
+    public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public String getStreet() {
+		return street;
+	}
+	public void setStreet(String street) {
+		this.street = street;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	private String name;
-    private String category;
-    //Address
-    private String phone;
-    private String landMark;
-    
+	
     public String getLandMark() {
 		return landMark;
 	}
@@ -43,16 +66,16 @@ public class Location implements Serializable {
 		this.landMark = landMark;
 	}
 
-    public String getLongitude() {
+    public Double getLongitude() {
 		return longitude;
 	}
-	public void setLongitude(String longitude) {
+	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
-	public String getLatitude() {
+	public Double getLatitude() {
 		return latitude;
 	}
-	public void setLatitude(String latitude) {
+	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
 	public String getName() {

@@ -26,7 +26,7 @@ public class LocationDAOImpl extends BaseDAOImpl implements LocationDAO{
 
 	@Override
 	public Location createLocation(final Location location) {
-		final String query = "insert into locations (name, longitude, latitude, landmark, phone) values (?, ?, ?, ?, ?)";
+		final String query = "insert into locations (name, longitude, latitude, landmark, phone, street, city) values (?, ?, ?, ?, ?, ?, ?)";
 		
 		PreparedStatementCreator preparedStatementCreator = new PreparedStatementCreator() {
 			
@@ -36,10 +36,12 @@ public class LocationDAOImpl extends BaseDAOImpl implements LocationDAO{
 				PreparedStatement preparedStatement = con.prepareStatement(query, new String[]{"user_id"});
 				int i = 1;
 				preparedStatement.setString(i++, location.getName());
-				preparedStatement.setString(i++, location.getLongitude());
-				preparedStatement.setString(i++, location.getLatitude());
+				preparedStatement.setDouble(i++, location.getLongitude());
+				preparedStatement.setDouble(i++, location.getLatitude());
 				preparedStatement.setString(i++, location.getLandMark());
 				preparedStatement.setString(i++, location.getPhone());
+				preparedStatement.setString(i++, location.getStreet());
+				preparedStatement.setString(i++, location.getCity());
 				return preparedStatement;
 			}
 		};
@@ -51,8 +53,8 @@ public class LocationDAOImpl extends BaseDAOImpl implements LocationDAO{
 
 	@Override
 	public Locations getLocationsByPartialName(String partialName) {
-		final String query = "select * from locations where name like '%?%'";
-		List<Location> locationList = jdbcTemplate.query(query, new Object[]{partialName}, new BeanPropertyRowMapper(Location.class));
+		final String query = "select * from locations where name like ?";
+		List<Location> locationList = jdbcTemplate.query(query, new Object[]{"%" + partialName + "%"}, new BeanPropertyRowMapper(Location.class));
 		
 		Locations locations = new Locations();
 		locations.getLocations().addAll(locationList);

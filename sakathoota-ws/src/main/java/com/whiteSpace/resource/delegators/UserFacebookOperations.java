@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.facebook.api.Checkin;
 
 import com.whiteSpace.da.iface.UserDataDAO;
+import com.whiteSpace.domain.common.types.Location;
 import com.whiteSpace.domain.common.types.User;
 import com.whiteSpace.resource.impl.FBDataAccess;
+import com.whiteSpace.ws.commons.FB2NativeMapper;
 
 /**
  * @author Shivakumar N
@@ -30,9 +32,14 @@ public class UserFacebookOperations {
 		this.fbDataAccess = fbDataAccess;
 	}
 
-	public Checkin getLatestCheckin(String fbId){
+	public Location getLatestCheckin(String fbId){
 		User user = userDataDAO.getUserByFBId(Long.parseLong(fbId));
 		Checkin checkin = fbDataAccess.getUserLatestCheckin(user.getFbAccessToken());
-		return checkin;
+		if(checkin != null){
+			Location location = FB2NativeMapper.mapLocation(checkin);
+			location.setUser(user);
+			return location;
+		}
+		return null;
 	}
 }
