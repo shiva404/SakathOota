@@ -33,8 +33,8 @@ public class TxtWebPush{
         String message = notification.getData();
         if(mobileHash == null)
             mobileHash = "";
-        if(message == null)
-            message = "";
+        if(message == null || message.isEmpty())
+            return;
         String response = "Trying to push a message to your mobile<br/>";
         System.out.println(message);
         int result = sendPushMessage(message, mobileHash);
@@ -112,6 +112,7 @@ public class TxtWebPush{
             OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
             wr.write(urlParams);
             wr.flush();
+            wr.close();
             
             Document doc = db.parse(conn.getInputStream());
             NodeList statusNodes = doc.getElementsByTagName("status");

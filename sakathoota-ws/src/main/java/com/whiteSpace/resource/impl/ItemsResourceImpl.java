@@ -7,6 +7,7 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.whiteSpace.da.iface.ItemDAO;
 import com.whiteSpace.domain.common.types.Item;
 import com.whiteSpace.resource.iface.ItemsResource;
 
@@ -18,7 +19,7 @@ import com.whiteSpace.resource.iface.ItemsResource;
 public class ItemsResourceImpl implements ItemsResource{
 
 	@Autowired
-	private ItemD
+	private ItemDAO itemDAO;
 	
 	@Override
 	public Response createItem(Item item) {
