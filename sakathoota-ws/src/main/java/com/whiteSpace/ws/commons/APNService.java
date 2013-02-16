@@ -24,4 +24,11 @@ public class APNService {
 				e.printStackTrace();
 			}
 	}
+	
+	public static void main(String[] args){
+		APNService apnService = new APNService();
+		Notification notification = new Notification();
+		notification.setData("hello");
+		apnService.pushMessage(notification, "ca28064f0ed8ec3d40c0c44d7fd51c52c6fd532f3c46fc2d39781f825656d56c");
+	}
 }

@@ -18,7 +18,7 @@
 	<import resource="classpath*:beans-ws-fb.xml" />
 
 	<!-- Resources -->
-	<bean class="com.whiteSpace.resource.impl.FBRealTimeNotificationResourceImpl">
+	<bean id="fbRealTimeNotificationResource" class="com.whiteSpace.resource.impl.FBRealTimeNotificationResourceImpl">
 		<property name="userFacebookOperations" ref="userFacebookOperations" />
 	</bean>
 
@@ -48,7 +48,8 @@
 		<property name="fbDataAccess" ref="fbDataAccess" />
 	</bean>
 	
+	<bean class="com.whiteSpace.resource.impl.PushNotificationsControllerImpl" >
+		<property name="fbRealTimeNotificationResource" ref="fbRealTimeNotificationResource" />
+	</bean>
 	
-	
-
 </beans>

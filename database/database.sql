@@ -24,6 +24,30 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/ `sakathoota` /*!40100 DEFAULT CHARACTER
 USE `sakathoota`;
 
 --
+-- Table structure for table `items`
+--
+
+DROP TABLE IF EXISTS `items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `items` (
+  `item_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL,
+  `type` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`item_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `items`
+--
+
+LOCK TABLES `items` WRITE;
+/*!40000 ALTER TABLE `items` DISABLE KEYS */;
+/*!40000 ALTER TABLE `items` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `locations`
 --
 
@@ -39,9 +63,47 @@ CREATE TABLE `locations` (
   `phone` varchar(45) DEFAULT NULL,
   `street` varchar(300) DEFAULT NULL,
   `city` varchar(45) DEFAULT NULL,
+  `fb_loc_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`location_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `locations`
+--
+
+LOCK TABLES `locations` WRITE;
+/*!40000 ALTER TABLE `locations` DISABLE KEYS */;
+INSERT INTO `locations` VALUES (3,'Hoskerehalli',77.5406636,12.9338294,NULL,NULL,'','Bangalore',212960442072005),(6,'PES Institute of Technology',77.536588622629,12.934541361153,NULL,NULL,'100 Feet Ring Road;Banashankari - III Stage','Bangalore',160974543956177),(7,'The Bay',77.68086785,12.926065483333,NULL,NULL,'','Bangalore',220349984657323),(8,'RMZ Ecospace',77.680630482,12.926561743293,NULL,NULL,'Outer Ring Road, Bellandur','Bangalore',211177125564412);
+/*!40000 ALTER TABLE `locations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `menu_items`
+--
+
+DROP TABLE IF EXISTS `menu_items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `menu_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `location_id` int(11) DEFAULT NULL,
+  `menu_item_id` int(11) DEFAULT NULL,
+  `awesome_count` int(11) DEFAULT NULL,
+  `okay_count` int(11) DEFAULT NULL,
+  `bad_count` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `menu_items`
+--
+
+LOCK TABLES `menu_items` WRITE;
+/*!40000 ALTER TABLE `menu_items` DISABLE KEYS */;
+/*!40000 ALTER TABLE `menu_items` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `txtweb_phones`
@@ -58,6 +120,45 @@ CREATE TABLE `txtweb_phones` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `txtweb_phones`
+--
+
+LOCK TABLES `txtweb_phones` WRITE;
+/*!40000 ALTER TABLE `txtweb_phones` DISABLE KEYS */;
+INSERT INTO `txtweb_phones` VALUES (1,'ads','adb',1);
+/*!40000 ALTER TABLE `txtweb_phones` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_emotions`
+--
+
+DROP TABLE IF EXISTS `user_emotions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_emotions` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `menu_id` int(11) DEFAULT NULL,
+  `emotion_id` tinyint(4) DEFAULT NULL,
+  `location_id` int(11) DEFAULT NULL,
+  `menu_item_id` int(11) DEFAULT NULL,
+  `create_date` datetime DEFAULT NULL,
+  `update_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_emotions`
+--
+
+LOCK TABLES `user_emotions` WRITE;
+/*!40000 ALTER TABLE `user_emotions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_emotions` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `users`
@@ -79,10 +180,22 @@ CREATE TABLE `users` (
   `food_pref` int(2) DEFAULT NULL,
   `fb_access_token` varchar(200) DEFAULT NULL,
   `fb_acc_tok_expires_on` bigint(20) DEFAULT NULL,
+  `apn_device_token` varchar(50) DEFAULT NULL,
+  `android_token` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'something@nothing.com',NULL,'2013-01-20 20:43:38',NULL,'shiva',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,'shiva.n404@gmail.com','2013-01-23 14:06:17','2013-02-16 09:11:01',100001609165007,'Shiva Kumar',NULL,'1989-08-13 00:00:00',1,0,'AAAGNxAItAjIBADIt3ymGdDbreNF33uiI5NzrEAKGxez1tl3AFPPzRqCAKZCytBT1ZBg9goEQNZAw2ZCUQho80RYoYQCFmeyxb6DeeC2PnwZDZD',1359809773405,'ca28064f0ed8ec3d40c0c44d7fd51c52c6fd532f3c46fc2d39',NULL),(4,'sakkathoota@gmail.com','2013-01-29 20:37:00','2013-01-29 20:37:00',100005009113735,'Sakkath Oota',NULL,'1985-07-11 00:00:00',2,0,'AAAGNxAItAjIBALzZBT9bIFJIaJLP0sy7ZCDCzIbHHyNiK5ESx4ThZCbepTko85KyAss9xuLulfxszIYZCmTjJyAHLTk2sPV2Yu0hVCnp7gZDZD',1360361044600,NULL,NULL);
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -127,4 +240,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-01-29 22:24:02
+-- Dump completed on 2013-02-16 13:39:24

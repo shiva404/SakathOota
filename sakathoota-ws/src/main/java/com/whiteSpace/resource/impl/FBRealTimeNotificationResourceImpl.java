@@ -72,6 +72,7 @@ public class FBRealTimeNotificationResourceImpl
 			//	String androidIdentifier = userDataDAO.get
 				androidPush.processRequest(notification);
 				String deviceToken = userDataDAO.getAPNDeviceToken(user.getId());
+				System.err.println("pushing to the phone ====>" + deviceToken);
 				apnService.pushMessage(notification, deviceToken);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
