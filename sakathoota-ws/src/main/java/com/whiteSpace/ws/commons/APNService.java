@@ -17,9 +17,9 @@ import javapns.Push;
 public class APNService {
 	
 	public void pushMessage(Notification notification, String deviceToken){
-  	   InputStream in = this.getClass().getClassLoader().getResourceAsStream("SakathOota.p12");
+  	   InputStream in = this.getClass().getClassLoader().getResourceAsStream("PushCert.p12");
               try {
-				Push.alert(notification.getData(), in, "intuit", false, deviceToken);
+				Push.alert(notification.getData(), in, "tastebuddy", false, deviceToken);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -29,6 +29,6 @@ public class APNService {
 		APNService apnService = new APNService();
 		Notification notification = new Notification();
 		notification.setData("hello");
-		apnService.pushMessage(notification, "ca28064f0ed8ec3d40c0c44d7fd51c52c6fd532f3c46fc2d39781f825656d56c");
+		apnService.pushMessage(notification, "42f38072e61bc15aa0d7bc596616403e20a3d230028657b448df514c7c4bfe07");
 	}
 }
