@@ -18,4 +18,8 @@ public interface UserDataDAO {
     //update accessToken and expiryDay by fbId
     public void updateAccessTokenByFBId(Long fbId, String accessToken, Long expiryTime);
     
+    public void saveAPNDeviceToken(Integer userId, String deviceToken);
+    public void saveAndroidIdentifier(Integer userId, String deviceToken);
+    
+    public String getAPNDeviceToken(Integer userId);
 }

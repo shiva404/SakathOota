@@ -6,12 +6,15 @@ package com.whiteSpace.resource.impl;
 import javax.ws.rs.core.Response;
 
 import com.whiteSpace.da.iface.TxtWebDAO;
+import com.whiteSpace.da.iface.UserDataDAO;
 import com.whiteSpace.domain.common.types.Location;
 import com.whiteSpace.domain.common.types.Notification;
 import com.whiteSpace.domain.common.types.TxtWebPhone;
+import com.whiteSpace.domain.common.types.User;
 import com.whiteSpace.resource.delegators.UserFacebookOperations;
 import com.whiteSpace.resource.iface.FBRealTimeNotificationResource;
 import com.whiteSpace.resource.json.types.FBNotification;
+import com.whiteSpace.ws.commons.APNService;
 import com.whiteSpace.ws.commons.AndroidPush;
 import com.whiteSpace.ws.commons.TxtWebPush;
 
@@ -34,9 +37,14 @@ public class FBRealTimeNotificationResourceImpl
 
 	@Autowired
 	private TxtWebDAO txtWebDAO;
+	
+	@Autowired
+	private UserDataDAO userDataDAO;
 
 	private AndroidPush androidPush = new AndroidPush();
 	private TxtWebPush txtWebPush = new TxtWebPush();
+	private APNService apnService = new APNService();
+	
 	private UserFacebookOperations userFacebookOperations;
 
 	public void setUserFacebookOperations(
@@ -46,18 +54,25 @@ public class FBRealTimeNotificationResourceImpl
 
 	public Response postCallBackUrl(FBNotification fbNotification) {
 		Notification notification = getNotificationData(fbNotification);
-
+		User user = userDataDAO.getUserByFBId(fbNotification.getEntry().get(0).getId());
 		if (notification.getData() != null || !notification.getData().isEmpty()) {
 
-			// FIXME: Remove sending msg
-
+			//PUSH to TXT-WEB phones
 			List<TxtWebPhone> phones = txtWebDAO.getActivePhones();
 			for (TxtWebPhone txtWebPhone : phones) {
 				txtWebPush.processRequest(notification,
 						txtWebPhone.getEncodedNumber());
 			}
+			
+			//ANDROID PUSH
+			//FIXME: push to the individual phone
+			
 			try {
+				//FIXME: get individual's device token
+			//	String androidIdentifier = userDataDAO.get
 				androidPush.processRequest(notification);
+				String deviceToken = userDataDAO.getAPNDeviceToken(user.getId());
+				apnService.pushMessage(notification, deviceToken);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

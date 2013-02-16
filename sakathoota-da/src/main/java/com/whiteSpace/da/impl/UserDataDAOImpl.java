@@ -96,4 +96,33 @@ public class UserDataDAOImpl extends BaseDAOImpl implements UserDataDAO {
 		jdbcTemplate.update(preparedStatementCreator);
 	}
 
+	@Override
+	public void saveAPNDeviceToken(final Integer userId, final String deviceToken) {
+		final String sql = "update users set apn_device_token = ? where user_id = ?";
+
+		PreparedStatementCreator preparedStatementCreator = new PreparedStatementCreator() {
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con)
+					throws SQLException {
+				PreparedStatement preparedStatement = con.prepareStatement(sql);
+				int i = 1;
+				preparedStatement.setString(i++, deviceToken);
+				preparedStatement.setInt(i++, userId);
+				return preparedStatement;
+			}
+		};
+		jdbcTemplate.update(preparedStatementCreator);
+	}
+
+	@Override
+	public void saveAndroidIdentifier(Integer userId, String deviceToken) {
+		
+	}
+
+	@Override
+	public String getAPNDeviceToken(Integer userId) {
+		String sql = "select apn_device_token from users where user_id = ?";
+		return jdbcTemplate.queryForObject(sql, new Object[]{userId}, String.class);
+	}
+	
 }

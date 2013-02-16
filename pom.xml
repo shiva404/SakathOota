@@ -85,6 +85,11 @@
 			<name>Spring Maven Milestone Repository</name>
 			<url>http://maven.springframework.org/milestone</url>
 		</repository>
+
+		<repository>
+			<id>org.kungfuters</id>
+			<url>http://maven.kungfuters.org/content/repositories/public/</url>
+		</repository>
 	</repositories>
 
 </project>
