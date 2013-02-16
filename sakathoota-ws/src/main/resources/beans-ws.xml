@@ -48,7 +48,7 @@
 		<property name="fbDataAccess" ref="fbDataAccess" />
 	</bean>
 	
-	<bean id="apnService" class="com.whiteSpace.ws.commons.APNService" />
+	
 	
 
 </beans>
