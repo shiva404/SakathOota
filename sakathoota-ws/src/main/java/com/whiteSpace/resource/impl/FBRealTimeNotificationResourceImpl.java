@@ -100,9 +100,7 @@ public class FBRealTimeNotificationResourceImpl
 			Location location = userFacebookOperations
 					.getLatestCheckin(fbNotification.getEntry().get(0).getUid()
 							.toString());
-			notification.setData(location.getUser().getName()
-					+ " cheked in to " + location.getName() + ","
-					+ location.getStreet() + "," + location.getCity());
+			notification.setData("It looks like you checked into " + location.getName() + " a minute back. Please open to rate, share and find most popular items at " +location.getName());
 			logger.info("Sending data*******" + notification.getData());
 		}
 		return notification;
