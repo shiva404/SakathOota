@@ -55,7 +55,7 @@ public class FBRealTimeNotificationResourceImpl
 	public Response postCallBackUrl(FBNotification fbNotification) {
 		Notification notification = getNotificationData(fbNotification);
 		User user = userDataDAO.getUserByFBId(fbNotification.getEntry().get(0).getId());
-		if (notification.getData() != null || !notification.getData().isEmpty()) {
+		if (notification.getData() != null && !notification.getData().isEmpty()) {
 
 			//PUSH to TXT-WEB phones
 			List<TxtWebPhone> phones = txtWebDAO.getActivePhones();
