@@ -50,8 +50,8 @@ public class ItemDAOImpl extends BaseDAOImpl implements ItemDAO{
 	}
 
 	@Override
-	public Item getItem(String id) {
-		String sql = "select item_id, name, type from users where fb_id = ?";
+	public Item getItem(Integer id) {
+		String sql = "select item_id, name, type from items where item_id = ?";
 		List<Item> items = jdbcTemplate.query(sql, new Object[]{id}, new ItemRowMapper());
 		if(items.size() > 0){
 			return items.get(0);

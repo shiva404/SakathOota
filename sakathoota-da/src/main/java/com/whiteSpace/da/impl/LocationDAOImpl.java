@@ -71,4 +71,14 @@ public class LocationDAOImpl extends BaseDAOImpl implements LocationDAO{
 		}
 		return null;
 	}
+
+	@Override
+	public Location getLocationById(Long id) {
+		final String query = "select * from locations where location_id = ?";
+		List<Location> locationList = jdbcTemplate.query(query, new Object[]{id}, new BeanPropertyRowMapper(Location.class));
+		if(locationList.size() > 0){
+			return locationList.get(0);
+		}
+		return null;
+	}
 }

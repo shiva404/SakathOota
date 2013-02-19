@@ -33,4 +33,6 @@
     <bean id="txtWebDAO" class="com.whiteSpace.da.impl.TxtWebDAOImpl" parent="baseDAO" />
     <bean id="locationDao" class="com.whiteSpace.da.impl.LocationDAOImpl" parent="baseDAO" />
     <bean id="itemDao" class="com.whiteSpace.da.impl.ItemDAOImpl" parent="baseDAO" />    
+    <bean id="feedDao" class="com.whiteSpace.da.impl.FeedDAOImpl" parent="baseDAO" />
+    <bean id="menuDao" class="com.whiteSpace.da.impl.MenuDAOImpl" parent="baseDAO" /> 
 </beans>

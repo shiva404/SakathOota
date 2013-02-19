@@ -24,6 +24,36 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/ `sakathoota` /*!40100 DEFAULT CHARACTER
 USE `sakathoota`;
 
 --
+-- Table structure for table `feed`
+--
+
+DROP TABLE IF EXISTS `feed`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `feed` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `menu_id` int(11) DEFAULT NULL,
+  `emotion_id` tinyint(4) DEFAULT NULL,
+  `location_id` int(11) DEFAULT NULL,
+  `menu_item_id` int(11) DEFAULT NULL,
+  `create_date` datetime DEFAULT NULL,
+  `update_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `feed`
+--
+
+LOCK TABLES `feed` WRITE;
+/*!40000 ALTER TABLE `feed` DISABLE KEYS */;
+INSERT INTO `feed` VALUES (1,3,1,2,7,NULL,NULL,NULL),(2,3,1,2,7,NULL,NULL,NULL),(3,3,1,2,7,NULL,NULL,NULL),(4,3,1,2,7,NULL,NULL,NULL),(5,3,1,2,7,NULL,NULL,NULL),(6,3,1,2,7,NULL,NULL,NULL),(7,3,1,2,7,NULL,NULL,NULL),(8,3,1,2,7,NULL,NULL,NULL),(9,3,1,2,7,NULL,NULL,NULL),(10,3,1,2,7,NULL,NULL,NULL),(11,3,1,2,7,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `feed` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `items`
 --
 
@@ -35,7 +65,7 @@ CREATE TABLE `items` (
   `name` varchar(100) DEFAULT NULL,
   `type` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`item_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,6 +74,7 @@ CREATE TABLE `items` (
 
 LOCK TABLES `items` WRITE;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
+INSERT INTO `items` VALUES (1,'chicken biryani',2);
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -65,7 +96,7 @@ CREATE TABLE `locations` (
   `city` varchar(45) DEFAULT NULL,
   `fb_loc_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`location_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,7 +105,7 @@ CREATE TABLE `locations` (
 
 LOCK TABLES `locations` WRITE;
 /*!40000 ALTER TABLE `locations` DISABLE KEYS */;
-INSERT INTO `locations` VALUES (3,'Hoskerehalli',77.5406636,12.9338294,NULL,NULL,'','Bangalore',212960442072005),(6,'PES Institute of Technology',77.536588622629,12.934541361153,NULL,NULL,'100 Feet Ring Road;Banashankari - III Stage','Bangalore',160974543956177),(7,'The Bay',77.68086785,12.926065483333,NULL,NULL,'','Bangalore',220349984657323),(8,'RMZ Ecospace',77.680630482,12.926561743293,NULL,NULL,'Outer Ring Road, Bellandur','Bangalore',211177125564412);
+INSERT INTO `locations` VALUES (3,'Hoskerehalli',77.5406636,12.9338294,NULL,NULL,'','Bangalore',212960442072005),(6,'PES Institute of Technology',77.536588622629,12.934541361153,NULL,NULL,'100 Feet Ring Road;Banashankari - III Stage','Bangalore',160974543956177),(7,'The Bay',77.68086785,12.926065483333,NULL,NULL,'','Bangalore',220349984657323),(8,'RMZ Ecospace',77.680630482,12.926561743293,NULL,NULL,'Outer Ring Road, Bellandur','Bangalore',211177125564412),(9,'Sports Cafe SH17',77.53181,12.92927,NULL,NULL,'Bangalore - Mysore Highway','Bangalore',113584562026875),(10,'PESIT Creative Team',77.533866521651,12.936154088444,NULL,NULL,'','Bangalore',273543549355794),(11,'NICE ring road',77.5410565,12.9324415,NULL,NULL,'','Bangalore',244674982221837),(12,'Udupi Gardens',77.610037339179,12.916234150318,NULL,NULL,'Udupigardens, 16th Main 2nd Stg','Bangalore',153960144664183),(13,'Jcubez',77.56394547576,12.925864477753,NULL,NULL,'banshankari','Bangalore',172119086173936),(14,'Cuppa',77.54379856005,12.930450313589,NULL,NULL,'','Bangalore',217557021621540);
 /*!40000 ALTER TABLE `locations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,7 +124,7 @@ CREATE TABLE `menu_items` (
   `okay_count` int(11) DEFAULT NULL,
   `bad_count` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -102,6 +133,7 @@ CREATE TABLE `menu_items` (
 
 LOCK TABLES `menu_items` WRITE;
 /*!40000 ALTER TABLE `menu_items` DISABLE KEYS */;
+INSERT INTO `menu_items` VALUES (1,7,1,1,0,0);
 /*!40000 ALTER TABLE `menu_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -132,35 +164,6 @@ INSERT INTO `txtweb_phones` VALUES (1,'ads','adb',1);
 UNLOCK TABLES;
 
 --
--- Table structure for table `user_emotions`
---
-
-DROP TABLE IF EXISTS `user_emotions`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user_emotions` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `menu_id` int(11) DEFAULT NULL,
-  `emotion_id` tinyint(4) DEFAULT NULL,
-  `location_id` int(11) DEFAULT NULL,
-  `menu_item_id` int(11) DEFAULT NULL,
-  `create_date` datetime DEFAULT NULL,
-  `update_date` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user_emotions`
---
-
-LOCK TABLES `user_emotions` WRITE;
-/*!40000 ALTER TABLE `user_emotions` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user_emotions` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `users`
 --
 
@@ -180,11 +183,11 @@ CREATE TABLE `users` (
   `food_pref` int(2) DEFAULT NULL,
   `fb_access_token` varchar(200) DEFAULT NULL,
   `fb_acc_tok_expires_on` bigint(20) DEFAULT NULL,
-  `apn_device_token` varchar(50) DEFAULT NULL,
+  `apn_device_token` varchar(100) DEFAULT NULL,
   `android_token` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -193,7 +196,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'something@nothing.com',NULL,'2013-01-20 20:43:38',NULL,'shiva',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,'shiva.n404@gmail.com','2013-01-23 14:06:17','2013-02-16 09:11:01',100001609165007,'Shiva Kumar',NULL,'1989-08-13 00:00:00',1,0,'AAAGNxAItAjIBADIt3ymGdDbreNF33uiI5NzrEAKGxez1tl3AFPPzRqCAKZCytBT1ZBg9goEQNZAw2ZCUQho80RYoYQCFmeyxb6DeeC2PnwZDZD',1359809773405,'ca28064f0ed8ec3d40c0c44d7fd51c52c6fd532f3c46fc2d39',NULL),(4,'sakkathoota@gmail.com','2013-01-29 20:37:00','2013-01-29 20:37:00',100005009113735,'Sakkath Oota',NULL,'1985-07-11 00:00:00',2,0,'AAAGNxAItAjIBALzZBT9bIFJIaJLP0sy7ZCDCzIbHHyNiK5ESx4ThZCbepTko85KyAss9xuLulfxszIYZCmTjJyAHLTk2sPV2Yu0hVCnp7gZDZD',1360361044600,NULL,NULL);
+INSERT INTO `users` VALUES (1,'something@nothing.com',NULL,'2013-01-20 20:43:38',NULL,'shiva',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,'shiva.n404@gmail.com','2013-01-23 14:06:17','2013-02-18 21:23:34',100001609165007,'Shiva Kumar',NULL,'1989-08-13 00:00:00',1,0,'AAAGNxAItAjIBADIt3ymGdDbreNF33uiI5NzrEAKGxez1tl3AFPPzRqCAKZCytBT1ZBg9goEQNZAw2ZCUQho80RYoYQCFmeyxb6DeeC2PnwZDZD',1362091839221,'42f38072e61bc15aa0d7bc596616403e20a3d230028657b448df514c7c4bfe07',NULL),(4,'sakkathoota@gmail.com','2013-01-29 20:37:00','2013-01-29 20:37:00',100005009113735,'Sakkath Oota',NULL,'1985-07-11 00:00:00',2,0,'AAAGNxAItAjIBALzZBT9bIFJIaJLP0sy7ZCDCzIbHHyNiK5ESx4ThZCbepTko85KyAss9xuLulfxszIYZCmTjJyAHLTk2sPV2Yu0hVCnp7gZDZD',1360361044600,NULL,NULL),(5,'shivakumar.pesit@gmail.com','2013-02-18 21:34:36','2013-02-18 21:34:36',1683517251,'Shiva Kumar',NULL,'1989-08-13 00:00:00',1,0,'AAAGNxAItAjIBAFOvTB1dZBAmxSezd5ZB8JZA8iVqNOnVGnBZC4dQUDDYKuCshp0QBAZC7JppfVNLKXC8D7LKpUG1dk1DRAypt13ZA9MuZCuDwZDZD',1362092502124,NULL,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -240,4 +243,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-02-16 13:39:24
+-- Dump completed on 2013-02-19 20:02:00

@@ -52,4 +52,8 @@
 		<property name="fbRealTimeNotificationResource" ref="fbRealTimeNotificationResource" />
 	</bean>
 	
+	<bean class="com.whiteSpace.resource.impl.FeedImpl">
+		<property name="userFacebookOperations" ref ="userFacebookOperations" />
+	</bean>
+	
 </beans>

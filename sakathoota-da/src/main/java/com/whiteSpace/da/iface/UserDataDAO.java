@@ -12,7 +12,7 @@ import com.whiteSpace.domain.common.types.User;
 public interface UserDataDAO {
     public User createUser(User user);
     public User getUserByEmail(String email);
-    public User getUserById(String id);
+    public User getUserById(Long id);
     public User getUserByFBId(Long fbId);
     
     //update accessToken and expiryDay by fbId

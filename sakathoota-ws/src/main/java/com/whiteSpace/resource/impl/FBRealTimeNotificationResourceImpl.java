@@ -69,11 +69,15 @@ public class FBRealTimeNotificationResourceImpl
 			
 			try {
 				//FIXME: get individual's device token
-			//	String androidIdentifier = userDataDAO.get
+			
 				androidPush.processRequest(notification);
 				String deviceToken = userDataDAO.getAPNDeviceToken(user.getId());
 				System.err.println("pushing to the phone ====>" + deviceToken);
 				apnService.pushMessage(notification, deviceToken);
+				
+				//Write to the page
+				userFacebookOperations.writeCheckinToFb(fbNotification.getEntry().get(0).getUid().toString());
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

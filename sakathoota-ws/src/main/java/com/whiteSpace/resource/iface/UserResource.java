@@ -26,4 +26,7 @@ public interface UserResource {
     @GET
     @Path("/{id}/fb/checkins/latest")
     public Response getLatestCheckin(@PathParam("id") String id, @QueryParam("idType") String idType);   
+    
+   
+    
 }

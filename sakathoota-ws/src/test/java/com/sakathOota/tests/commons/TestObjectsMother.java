@@ -1,7 +1,9 @@
 package com.sakathOota.tests.commons;
 
+import com.whiteSpace.domain.common.types.FeedItem;
 import com.whiteSpace.domain.common.types.FoodPreference;
 import com.whiteSpace.domain.common.types.Gender;
+import com.whiteSpace.domain.common.types.Item;
 import com.whiteSpace.domain.common.types.Location;
 import com.whiteSpace.domain.common.types.User;
 import com.whiteSpace.resource.json.types.Entry;
@@ -55,5 +57,15 @@ public class TestObjectsMother {
     	location.setStreet("PESIT");
     	location.setCity("Bangalore");
     	return location;
+    }
+    
+    public static FeedItem getFeedItem(){
+    	FeedItem feedItem = new FeedItem();
+    	feedItem.setLocationId(7);
+    	feedItem.setMenuItemId(1);
+    	feedItem.setMenuId(1);
+    	feedItem.setRating(2);
+    	feedItem.setUserId(3);
+    	return feedItem;
     }
 }

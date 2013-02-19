@@ -12,6 +12,6 @@ import com.whiteSpace.domain.common.types.Item;
  */
 public interface ItemDAO {
 	public Item createItem(Item item);
-	public Item getItem(String id);
+	public Item getItem(Integer id);
 	public Item getAllItems();
 }

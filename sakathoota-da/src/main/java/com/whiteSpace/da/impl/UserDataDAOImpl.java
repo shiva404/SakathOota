@@ -59,11 +59,7 @@ public class UserDataDAOImpl extends BaseDAOImpl implements UserDataDAO {
 
 	}
 
-	@Override
-	public User getUserById(String id) {
-		return null;
-
-	}
+	
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -123,6 +119,19 @@ public class UserDataDAOImpl extends BaseDAOImpl implements UserDataDAO {
 	public String getAPNDeviceToken(Integer userId) {
 		String sql = "select apn_device_token from users where user_id = ?";
 		return jdbcTemplate.queryForObject(sql, new Object[]{userId}, String.class);
+	}
+
+	
+	@Override
+	public User getUserById(Long id) {
+		
+		String sql = "select user_id, email, fb_id, name, password, dob, gender, food_pref, fb_access_token, fb_acc_tok_expires_on, fb_id from users where user_id = ?";
+		List<User> users = jdbcTemplate.query(sql, new Object[]{id}, new UserRowMapper());
+		if(users.size() > 0){
+			return users.get(0);
+		} else {
+			return null;
+		}
 	}
 	
 }

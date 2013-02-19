@@ -47,7 +47,7 @@ public class FBCredentailsControllerImpl implements FBCredentialsController{
 		this.fbDataAccess = fbDataAccess;
 		oauthOperations = fbDataAccess.getConnectionFactory().getOAuthOperations();
 		params = new OAuth2Parameters();
-		params.setScope("email,user_birthday,user_likes,user_status,user_checkins,user_location");
+		params.setScope("email,user_birthday,user_likes,user_status,user_checkins,user_location,manage_pages,publish_checkins,publish_stream");
 		this.basePath = basePath;
 	}
 
